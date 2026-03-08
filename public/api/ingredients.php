@@ -9,6 +9,7 @@ require_auth();
 
 $db     = Database::get();
 $method = $_SERVER['REQUEST_METHOD'];
+if ($method !== 'GET') verify_csrf();
 
 // GET — list by food_item_id
 if ($method === 'GET') {

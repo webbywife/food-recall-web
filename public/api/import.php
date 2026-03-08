@@ -7,6 +7,7 @@ header('Content-Type: application/json');
 
 $user = require_auth();
 if ($user['role'] !== 'supervisor') json_response(['error' => 'Forbidden'], 403);
+verify_csrf();
 
 $db = Database::get();
 

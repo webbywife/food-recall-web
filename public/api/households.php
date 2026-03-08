@@ -9,6 +9,7 @@ $user   = require_auth();
 $db     = Database::get();
 $method = $_SERVER['REQUEST_METHOD'];
 $id     = isset($_GET['id']) ? (int)$_GET['id'] : null;
+if ($method !== 'GET') verify_csrf();
 
 // GET /api/households.php  — list
 // GET /api/households.php?id=N — single with respondents

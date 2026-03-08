@@ -1,0 +1,51 @@
+# ─── Directory security ───────────────────────────────────────────────────────
+Options -Indexes
+ServerSignature Off
+
+# Block access to sensitive files at the web root
+<FilesMatch "(^\.|composer\.(json|lock)$|\.md$|\.sql$|\.yml$|\.yaml$|\.env$|\.log$)">
+    Require all denied
+</FilesMatch>
+
+# ─── Security headers ─────────────────────────────────────────────────────────
+<IfModule mod_headers.c>
+    # Prevent MIME-type sniffing
+    Header always set X-Content-Type-Options "nosniff"
+
+    # Prevent clickjacking
+    Header always set X-Frame-Options "DENY"
+
+    # Legacy XSS filter (belt-and-suspenders)
+    Header always set X-XSS-Protection "1; mode=block"
+
+    # Limit referrer information
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+    # Restrict browser feature access
+    Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+
+    # Content Security Policy
+    # - no external scripts (Chart.js is vendored locally)
+    # - unsafe-inline required for inline <script> blocks and onclick= handlers
+    # - blob: allowed for img-src (canvas/chart exports)
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; frame-ancestors 'none'; base-uri 'self'; form-action 'self';"
+
+    # HTTP Strict Transport Security (sent only over HTTPS)
+    Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
+    # Strip PHP version disclosure
+    Header always unset X-Powered-By
+    Header unset X-Powered-By
+</IfModule>
+
+# ─── PHP hardening (works with mod_php) ──────────────────────────────────────
+<IfModule mod_php.c>
+    php_flag expose_php         Off
+    php_flag display_errors     Off
+    php_flag log_errors         On
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag expose_php         Off
+    php_flag display_errors     Off
+    php_flag log_errors         On
+</IfModule>

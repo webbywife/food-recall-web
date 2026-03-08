@@ -9,6 +9,7 @@ $user   = require_auth();
 $db     = Database::get();
 $method = $_SERVER['REQUEST_METHOD'];
 $action = $_GET['action'] ?? '';
+if ($method !== 'GET') verify_csrf();
 
 // ── GET session details ────────────────────────────────────
 if ($method === 'GET' && $action === 'get') {

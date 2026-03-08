@@ -9,18 +9,30 @@ $back = $user['role'] === 'supervisor' ? 'supervisor.php' : 'interviewer.php';
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="csrf-token" content="<?= csrf_token() ?>">
 <title>Help & Documentation | 24HR Food Recall</title>
 <link rel="stylesheet" href="assets/css/app.css">
 <style>
-.help-wrap   { max-width: 900px; margin: 2rem auto; padding: 0 1.5rem 4rem; }
-.help-toc    { background: var(--green-50); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; margin-bottom: 2rem; }
-.help-toc h3 { margin: 0 0 .75rem; font-size: 1rem; }
-.help-toc ol { margin: 0; padding-left: 1.25rem; line-height: 2; }
-.help-toc a  { color: var(--green-800); text-decoration: none; font-size: .9rem; }
-.help-toc a:hover { text-decoration: underline; }
+/* ── Layout ─────────────────────────────────────────── */
+.help-outer  { max-width: 1200px; margin: 2rem auto; padding: 0 1.5rem 4rem; display: grid; grid-template-columns: 1fr 230px; gap: 2.5rem; align-items: start; }
+.help-content { min-width: 0; }
+
+/* ── Right-side sticky TOC ───────────────────────────── */
+.help-toc    { position: sticky; top: 4.5rem; background: var(--green-50); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.1rem 1.25rem; }
+.help-toc h3 { margin: 0 0 .65rem; font-size: .85rem; text-transform: uppercase; letter-spacing: .06em; color: var(--green-900); font-weight: 700; }
+.help-toc ol,
+.help-toc ul { margin: 0; padding-left: 1rem; }
+.help-toc > ol { padding-left: 0; list-style: none; }
+.help-toc > ol > li { margin-bottom: .1rem; }
+.help-toc > ol > li > a { font-weight: 600; }
+.help-toc ol ol { padding-left: .9rem; margin-top: .15rem; list-style: none; }
+.help-toc a  { color: var(--green-800); text-decoration: none; font-size: .82rem; line-height: 1.9; display: block; }
+.help-toc a:hover { color: var(--green-900); text-decoration: underline; }
+
+/* ── Content sections ────────────────────────────────── */
 .help-section        { margin-bottom: 2.5rem; }
-.help-section h2     { font-size: 1.25rem; color: var(--green-900); border-bottom: 2px solid var(--green-100); padding-bottom: .5rem; margin-bottom: 1rem; }
-.help-section h3     { font-size: 1rem; font-weight: 700; margin: 1.25rem 0 .5rem; color: var(--text); }
+.help-section h2     { font-size: 1.2rem; color: var(--green-900); border-bottom: 2px solid var(--green-100); padding-bottom: .5rem; margin-bottom: 1rem; }
+.help-section h3     { font-size: .95rem; font-weight: 700; margin: 1.25rem 0 .5rem; color: var(--text); }
 .help-section p      { line-height: 1.7; color: var(--text-2); margin-bottom: .75rem; font-size: .9rem; }
 .help-section ul,
 .help-section ol     { padding-left: 1.4rem; line-height: 1.9; color: var(--text-2); font-size: .9rem; margin-bottom: .75rem; }
@@ -39,6 +51,10 @@ $back = $user['role'] === 'supervisor' ? 'supervisor.php' : 'interviewer.php';
 table.help-table { width: 100%; border-collapse: collapse; font-size: .875rem; margin: .75rem 0; }
 table.help-table th { background: var(--green-50); color: var(--green-900); text-align: left; padding: .5rem .75rem; border: 1px solid var(--border); font-weight: 600; }
 table.help-table td { padding: .45rem .75rem; border: 1px solid var(--border); color: var(--text-2); vertical-align: top; }
+@media (max-width: 768px) {
+  .help-outer { grid-template-columns: 1fr; }
+  .help-toc   { position: static; order: -1; }
+}
 </style>
 </head>
 <body class="app-page">
@@ -54,35 +70,10 @@ table.help-table td { padding: .45rem .75rem; border: 1px solid var(--border); c
   </div>
 </nav>
 
-<div class="help-wrap">
+<div class="help-outer">
 
-  <div class="help-toc">
-    <h3>Table of Contents</h3>
-    <ol>
-      <li><a href="#overview">Overview</a></li>
-      <li><a href="#roles">User Roles</a></li>
-      <li><a href="#supervisor">Supervisor Guide</a>
-        <ol>
-          <li><a href="#manage-hh">Managing Households</a></li>
-          <li><a href="#csv-upload">Bulk CSV Upload</a></li>
-          <li><a href="#quotas">Setting Quotas</a></li>
-          <li><a href="#day2">Day 2 Recall Tracking</a></li>
-          <li><a href="#analytics">Analytics Dashboard</a></li>
-        </ol>
-      </li>
-      <li><a href="#interviewer">Interviewer Guide</a>
-        <ol>
-          <li><a href="#pass1">Pass 1 — Quick List</a></li>
-          <li><a href="#pass2">Pass 2 — Forgotten Foods</a></li>
-          <li><a href="#pass3">Pass 3 — Time &amp; Occasion</a></li>
-          <li><a href="#pass4">Pass 4 — Detail Cycle</a></li>
-          <li><a href="#pass5">Pass 5 — Review</a></li>
-        </ol>
-      </li>
-      <li><a href="#reni">RENI Adequacy Reference</a></li>
-      <li><a href="#tips">Field Tips</a></li>
-    </ol>
-  </div>
+<!-- ── Main content (left) ───────────────────────────────── -->
+<div class="help-content">
 
   <!-- ── 1. Overview ─────────────────────────────────── -->
   <section class="help-section" id="overview">
@@ -274,7 +265,40 @@ table.help-table td { padding: .45rem .75rem; border: 1px solid var(--border); c
     </ul>
   </section>
 
-</div>
+</div><!-- /help-content -->
+
+<!-- ── Right-side sticky TOC ─────────────────────────────── -->
+<nav class="help-toc" aria-label="Table of contents">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#overview">Overview</a></li>
+    <li><a href="#roles">User Roles</a></li>
+    <li>
+      <a href="#supervisor">Supervisor Guide</a>
+      <ol>
+        <li><a href="#manage-hh">Managing Households</a></li>
+        <li><a href="#csv-upload">Bulk CSV Upload</a></li>
+        <li><a href="#quotas">Setting Quotas</a></li>
+        <li><a href="#day2">Day 2 Tracking</a></li>
+        <li><a href="#analytics">Analytics</a></li>
+      </ol>
+    </li>
+    <li>
+      <a href="#interviewer">Interviewer Guide</a>
+      <ol>
+        <li><a href="#pass1">Pass 1 — Quick List</a></li>
+        <li><a href="#pass2">Pass 2 — Forgotten Foods</a></li>
+        <li><a href="#pass3">Pass 3 — Time &amp; Occasion</a></li>
+        <li><a href="#pass4">Pass 4 — Detail Cycle</a></li>
+        <li><a href="#pass5">Pass 5 — Review</a></li>
+      </ol>
+    </li>
+    <li><a href="#reni">RENI Reference</a></li>
+    <li><a href="#tips">Field Tips</a></li>
+  </ol>
+</nav>
+
+</div><!-- /help-outer -->
 
 <script src="assets/js/app.js"></script>
 </body>

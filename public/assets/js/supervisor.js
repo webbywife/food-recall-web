@@ -347,7 +347,7 @@ Supervisor.importCSV = async function () {
   formData.append('file', this._csvFile);
 
   try {
-    const res    = await fetch('api/import.php', { method: 'POST', body: formData });
+    const res    = await fetch('api/import.php', { method: 'POST', body: formData, headers: { 'X-CSRF-Token': getCsrfToken() } });
     const result = await res.json();
 
     const resultEl = el('csvResult');

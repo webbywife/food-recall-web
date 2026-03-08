@@ -7,6 +7,7 @@ redirect_if_logged_in();
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="csrf-token" content="<?= csrf_token() ?>">
 <title>24-HR Food Recall | FNRI-DOST</title>
 <link rel="stylesheet" href="assets/css/app.css">
 </head>
@@ -74,9 +75,10 @@ document.getElementById('loginForm').addEventListener('submit', async e => {
   err.hidden = true;
 
   try {
+    const csrfToken = document.querySelector('meta[name="csrf-token"]')?.content ?? '';
     const res  = await fetch('api/auth.php?action=login', {
       method: 'POST',
-      headers: {'Content-Type':'application/json'},
+      headers: {'Content-Type':'application/json', 'X-CSRF-Token': csrfToken},
       body: JSON.stringify({
         username: document.getElementById('username').value.trim(),
         password: document.getElementById('password').value,

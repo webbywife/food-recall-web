@@ -2,6 +2,11 @@
    app.js — shared utilities
    ============================================================ */
 
+function getCsrfToken() {
+  const m = document.querySelector('meta[name="csrf-token"]');
+  return m ? m.content : '';
+}
+
 const api = {
   async get(url) {
     const res = await fetch(url);
@@ -11,7 +16,7 @@ const api = {
   async post(url, body) {
     const res = await fetch(url, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCsrfToken() },
       body: JSON.stringify(body),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
@@ -20,14 +25,17 @@ const api = {
   async put(url, body) {
     const res = await fetch(url, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', 'X-CSRF-Token': getCsrfToken() },
       body: JSON.stringify(body),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   },
   async delete(url) {
-    const res = await fetch(url, { method: 'DELETE' });
+    const res = await fetch(url, {
+      method: 'DELETE',
+      headers: { 'X-CSRF-Token': getCsrfToken() },
+    });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     return res.json();
   },

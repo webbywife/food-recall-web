@@ -8,6 +8,7 @@ header('Content-Type: application/json');
 $user   = require_auth();
 $db     = Database::get();
 $method = $_SERVER['REQUEST_METHOD'];
+if ($method !== 'GET') verify_csrf();
 
 // POST — add respondent to household (supervisor only)
 if ($method === 'POST' && $user['role'] === 'supervisor') {

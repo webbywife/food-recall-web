@@ -42,6 +42,7 @@ if ($method === 'POST' && $action === 'login') {
 }
 
 if ($method === 'POST' && $action === 'logout') {
+    verify_csrf();
     session_destroy();
     json_response(['success' => true]);
 }

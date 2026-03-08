@@ -8,6 +8,7 @@ header('Content-Type: application/json');
 $user   = require_role('supervisor');
 $db     = Database::get();
 $method = $_SERVER['REQUEST_METHOD'];
+if ($method !== 'GET') verify_csrf();
 
 if ($method === 'GET') {
     // Interviewer progress
