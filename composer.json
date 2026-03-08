@@ -1,0 +1,8 @@
+{
+    "name": "food-recall/web",
+    "description": "24HR Food Recall Web Application",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    }
+}
