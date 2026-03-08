@@ -161,14 +161,130 @@ function isOverdue(dateStr) {
   return new Date(dateStr) < new Date();
 }
 
-document.addEventListener('DOMContentLoaded', () => Supervisor.init());
+document.addEventListener('DOMContentLoaded', () => {
+  Supervisor.init();
+  Users.load();
+});
 
 document.addEventListener('keydown', e => {
   if (e.key !== 'Escape') return;
-  if (!el('quotaModal').hidden)  { Supervisor.closeQuotaModal();  return; }
-  if (!el('addHHModal').hidden)  { Supervisor.closeAddHHModal();  return; }
-  if (!el('csvModal').hidden)    { Supervisor.closeCSVModal();    return; }
+  if (!el('quotaModal').hidden)   { Supervisor.closeQuotaModal();  return; }
+  if (!el('addHHModal').hidden)   { Supervisor.closeAddHHModal();  return; }
+  if (!el('csvModal').hidden)     { Supervisor.closeCSVModal();    return; }
+  if (!el('addUserModal').hidden) { Users.closeAddModal();         return; }
+  if (!el('resetPwModal').hidden) { Users.closeResetModal();       return; }
 });
+
+// ── User Management ───────────────────────────────────────
+
+const Users = {
+  async load() {
+    try {
+      const data = await api.get('api/users.php');
+      this.render(data.users || []);
+    } catch (e) {
+      console.error('Failed to load users', e);
+    }
+  },
+
+  render(users) {
+    const body = el('usersTableBody');
+    if (!users.length) {
+      body.innerHTML = '<tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:1.5rem">No interviewers found.</td></tr>';
+      return;
+    }
+    body.innerHTML = users.map(u => `
+      <tr>
+        <td><strong>${u.full_name}</strong></td>
+        <td><small style="color:var(--text-muted)">${u.username}</small></td>
+        <td>${u.assignment_area || '—'}</td>
+        <td>
+          <span class="badge badge-${u.is_active == 1 ? 'green' : 'gray'}">
+            ${u.is_active == 1 ? 'Active' : 'Inactive'}
+          </span>
+        </td>
+        <td style="display:flex;gap:.4rem;flex-wrap:wrap">
+          <button class="btn-sm" onclick="Users.openResetModal(${u.id}, '${u.full_name.replace(/'/g,"\\'")}')">Reset Password</button>
+          <button class="btn-sm ${u.is_active == 1 ? 'btn-danger-sm' : ''}"
+            onclick="Users.toggleActive(${u.id}, ${u.is_active == 1 ? 0 : 1}, '${u.full_name.replace(/'/g,"\\'")}')">
+            ${u.is_active == 1 ? 'Deactivate' : 'Activate'}
+          </button>
+        </td>
+      </tr>
+    `).join('');
+  },
+
+  openAddModal() {
+    ['uFullName','uUsername','uArea','uPassword','uPasswordConfirm'].forEach(id => el(id).value = '');
+    show('addUserModal');
+    el('uFullName').focus();
+  },
+
+  closeAddModal() { hide('addUserModal'); },
+
+  async saveNew() {
+    const fullName = el('uFullName').value.trim();
+    const username = el('uUsername').value.trim();
+    const area     = el('uArea').value.trim();
+    const password = el('uPassword').value;
+    const confirm  = el('uPasswordConfirm').value;
+
+    if (!fullName || !username) { notify('Full name and username are required.', 'error'); return; }
+    if (password.length < 8)    { notify('Password must be at least 8 characters.', 'error'); return; }
+    if (password !== confirm)   { notify('Passwords do not match.', 'error'); return; }
+
+    try {
+      await api.post('api/users.php', { full_name: fullName, username, assignment_area: area, password });
+      this.closeAddModal();
+      notify(`Interviewer "${fullName}" created.`);
+      await this.load();
+      await Supervisor.reload(); // refresh interviewer count stat
+    } catch (e) {
+      const msg = e.message?.includes('409') ? 'Username already exists.' : 'Failed to create interviewer.';
+      notify(msg, 'error');
+    }
+  },
+
+  openResetModal(id, name) {
+    el('resetPwId').value = id;
+    el('resetPwName').textContent = name;
+    el('resetPwNew').value = '';
+    el('resetPwConfirm').value = '';
+    show('resetPwModal');
+    el('resetPwNew').focus();
+  },
+
+  closeResetModal() { hide('resetPwModal'); },
+
+  async saveReset() {
+    const id      = +el('resetPwId').value;
+    const password = el('resetPwNew').value;
+    const confirm  = el('resetPwConfirm').value;
+
+    if (password.length < 8)  { notify('Password must be at least 8 characters.', 'error'); return; }
+    if (password !== confirm)  { notify('Passwords do not match.', 'error'); return; }
+
+    try {
+      await api.put('api/users.php', { id, action: 'reset_password', password });
+      this.closeResetModal();
+      notify('Password reset successfully.');
+    } catch {
+      notify('Failed to reset password.', 'error');
+    }
+  },
+
+  async toggleActive(id, newState, name) {
+    const action = newState === 0 ? 'deactivate' : 'activate';
+    if (!confirm(`${action.charAt(0).toUpperCase() + action.slice(1)} ${name}?`)) return;
+    try {
+      await api.put('api/users.php', { id, action: 'set_active', is_active: newState });
+      notify(`${name} ${action}d.`);
+      await this.load();
+    } catch {
+      notify('Failed to update status.', 'error');
+    }
+  },
+};
 
 // ── Household Management ──────────────────────────────────
 

@@ -87,6 +87,30 @@ if (!$user || $user['role'] !== 'supervisor') {
     </div>
   </section>
 
+  <!-- Manage Interviewers -->
+  <section class="sv-section">
+    <div class="sv-section-header">
+      <h3>Manage Interviewers</h3>
+      <button class="btn-sm btn-primary" onclick="Users.openAddModal()">+ Add Interviewer</button>
+    </div>
+    <div class="table-wrap">
+      <table class="data-table" id="usersTable">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Assignment Area</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="usersTableBody">
+          <tr><td colspan="5" style="text-align:center;color:var(--text-muted);padding:1.5rem">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
   <!-- Day 2 Pending -->
   <section class="sv-section">
     <div class="sv-section-header">
@@ -231,6 +255,61 @@ if (!$user || $user['role'] !== 'supervisor') {
         </div>
       </div>
       <button class="btn-primary btn-full" onclick="Supervisor.saveQuota()">Save Quota</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add Interviewer Modal -->
+<div id="addUserModal" class="modal-overlay" hidden onclick="if(event.target===this)Users.closeAddModal()">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h3>Add Interviewer</h3>
+      <button class="modal-close" onclick="Users.closeAddModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label>Full Name <span style="color:var(--red)">*</span></label>
+        <input type="text" id="uFullName" placeholder="e.g. Maria Santos" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Username <span style="color:var(--red)">*</span></label>
+        <input type="text" id="uUsername" placeholder="e.g. msantos" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Assignment Area</label>
+        <input type="text" id="uArea" placeholder="e.g. Region IV-A - Batangas" autocomplete="off">
+      </div>
+      <div class="field">
+        <label>Password <span style="color:var(--red)">*</span></label>
+        <input type="password" id="uPassword" placeholder="Min. 8 characters" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label>Confirm Password <span style="color:var(--red)">*</span></label>
+        <input type="password" id="uPasswordConfirm" placeholder="Repeat password" autocomplete="new-password">
+      </div>
+      <button class="btn-primary btn-full" style="margin-top:1rem" onclick="Users.saveNew()">Create Interviewer</button>
+    </div>
+  </div>
+</div>
+
+<!-- Reset Password Modal -->
+<div id="resetPwModal" class="modal-overlay" hidden onclick="if(event.target===this)Users.closeResetModal()">
+  <div class="modal modal-sm">
+    <div class="modal-header">
+      <h3>Reset Password — <span id="resetPwName"></span></h3>
+      <button class="modal-close" onclick="Users.closeResetModal()">&#x2715;</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="resetPwId">
+      <div class="field">
+        <label>New Password <span style="color:var(--red)">*</span></label>
+        <input type="password" id="resetPwNew" placeholder="Min. 8 characters" autocomplete="new-password">
+      </div>
+      <div class="field">
+        <label>Confirm Password <span style="color:var(--red)">*</span></label>
+        <input type="password" id="resetPwConfirm" placeholder="Repeat password" autocomplete="new-password">
+      </div>
+      <button class="btn-primary btn-full" style="margin-top:1rem" onclick="Users.saveReset()">Reset Password</button>
     </div>
   </div>
 </div>
