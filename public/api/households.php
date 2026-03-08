@@ -70,12 +70,13 @@ if ($method === 'GET') {
 if ($method === 'POST' && $user['role'] === 'supervisor') {
     $data = get_json_body();
     $stmt = $db->prepare("
-        INSERT INTO households (hh_id, region, province, municipality, barangay, address, assigned_interviewer_id)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO households (hh_id, region, province, municipality, barangay, address, household_size, assigned_interviewer_id)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
     ");
     $stmt->execute([
         $data['hh_id'], $data['region'], $data['province'],
         $data['municipality'], $data['barangay'], $data['address'],
+        isset($data['household_size']) && $data['household_size'] !== '' ? (int)$data['household_size'] : null,
         $data['assigned_interviewer_id'] ?? null,
     ]);
     json_response(['success' => true, 'id' => $db->lastInsertId()]);

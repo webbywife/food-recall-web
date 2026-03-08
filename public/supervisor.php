@@ -146,9 +146,15 @@ if (!$user || $user['role'] !== 'supervisor') {
           <input type="text" id="hhBarangay" placeholder="e.g. Paco">
         </div>
       </div>
-      <div class="field">
-        <label>Address</label>
-        <input type="text" id="hhAddress" placeholder="Street address (optional)">
+      <div class="field-row">
+        <div class="field" style="flex:3">
+          <label>Address</label>
+          <input type="text" id="hhAddress" placeholder="Street address (optional)">
+        </div>
+        <div class="field" style="flex:1">
+          <label>Household Size</label>
+          <input type="number" id="hhSize" placeholder="# members" min="1">
+        </div>
       </div>
 
       <div style="display:flex;align-items:center;justify-content:space-between;margin:1.25rem 0 .75rem;border-bottom:1px solid var(--border);padding-bottom:.5rem">

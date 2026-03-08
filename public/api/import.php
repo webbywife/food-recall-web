@@ -60,9 +60,10 @@ while (($row = fgetcsv($handle)) !== false) {
         } else {
             $iUser = strtolower($get($row, 'interviewer_username'));
             $iid   = $iUser ? ($interviewers[$iUser] ?? null) : null;
+            $hhSize = $get($row, 'household_size');
             $db->prepare("
-                INSERT INTO households (hh_id, region, province, municipality, barangay, address, assigned_interviewer_id)
-                VALUES (?, ?, ?, ?, ?, ?, ?)
+                INSERT INTO households (hh_id, region, province, municipality, barangay, address, household_size, assigned_interviewer_id)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?)
             ")->execute([
                 $hh_id,
                 $get($row, 'region')       ?: null,
@@ -70,6 +71,7 @@ while (($row = fgetcsv($handle)) !== false) {
                 $get($row, 'municipality') ?: null,
                 $get($row, 'barangay')     ?: null,
                 $get($row, 'address')      ?: null,
+                ($hhSize !== '') ? (int)$hhSize : null,
                 $iid,
             ]);
             $hhCache[$hh_id] = (int)$db->lastInsertId();

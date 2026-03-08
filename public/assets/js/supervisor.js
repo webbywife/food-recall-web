@@ -211,6 +211,7 @@ Supervisor.openAddHHModal = function () {
   el('hhMunicipality').value = '';
   el('hhBarangay').value = '';
   el('hhAddress').value = '';
+  el('hhSize').value = '';
   el('respondentRows').innerHTML = '';
   this._respRowIdx = 0;
 
@@ -260,6 +261,7 @@ Supervisor.saveHousehold = async function () {
       municipality:            el('hhMunicipality').value.trim() || null,
       barangay:                el('hhBarangay').value.trim()     || null,
       address:                 el('hhAddress').value.trim()      || null,
+      household_size:          el('hhSize').value ? +el('hhSize').value : null,
       assigned_interviewer_id: el('hhInterviewer').value ? +el('hhInterviewer').value : null,
     });
 
