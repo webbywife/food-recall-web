@@ -8,12 +8,14 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy via SSH
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: 107.173.35.23
-          username: ploi
-          key: ${{ secrets.DEPLOY_SSH_KEY }}
-          script: |
-            cd /home/ploi/foodrecord.webprvw.xyz
-            git pull origin main
+      - name: Setup SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          ssh-keyscan -H 107.173.35.23 >> ~/.ssh/known_hosts
+
+      - name: Deploy to server
+        run: |
+          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ploi@107.173.35.23 \
+            "cd /home/ploi/foodrecord.webprvw.xyz && git pull origin main"
