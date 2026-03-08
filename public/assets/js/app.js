@@ -2,6 +2,11 @@
    app.js — shared utilities
    ============================================================ */
 
+// Register service worker
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('sw.js').catch(e => console.warn('SW registration failed', e));
+}
+
 function getCsrfToken() {
   const m = document.querySelector('meta[name="csrf-token"]');
   return m ? m.content : '';

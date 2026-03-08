@@ -12,9 +12,20 @@ if (!$user || $user['role'] !== 'interviewer') {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="csrf-token" content="<?= csrf_token() ?>">
 <title>Interviewer Portal | 24HR Food Recall</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#1B5E20">
 <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body class="app-page">
+
+<!-- Offline bar -->
+<div id="offlineBar" class="offline-bar" hidden>
+  <span>⚡ No internet connection — interviews are saved locally on this device.</span>
+  <div class="offline-bar-right">
+    <span id="offlineBadge" class="offline-badge"></span>
+    <button id="syncBtn" class="btn-sync" hidden onclick="Offline.sync()">↑ Sync</button>
+  </div>
+</div>
 
 <!-- Top Nav -->
 <nav class="topnav">
@@ -108,6 +119,9 @@ if (!$user || $user['role'] !== 'interviewer') {
 window.APP_USER = <?= json_encode($user) ?>;
 </script>
 <script src="assets/js/app.js"></script>
+<script src="assets/js/idb.js"></script>
+<script src="assets/js/offline.js"></script>
 <script src="assets/js/interview.js"></script>
+<script>Offline.init();</script>
 </body>
 </html>
