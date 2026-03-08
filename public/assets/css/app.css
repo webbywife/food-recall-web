@@ -143,8 +143,8 @@ body {
 
 .login-hint { margin-top: 1.25rem; margin-bottom: 0; line-height: 1.7; }
 .login-hint code {
-  background: var(--green-100);
-  color: var(--green-800);
+  background: var(--gold-light);
+  color: var(--green-900);
   padding: 1px 5px;
   border-radius: 3px;
   font-size: .8rem;

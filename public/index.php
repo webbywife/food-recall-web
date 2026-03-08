@@ -21,7 +21,7 @@ redirect_if_logged_in();
         <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
           <circle cx="24" cy="24" r="22" fill="rgba(255,255,255,0.12)" stroke="rgba(255,255,255,0.3)" stroke-width="1.5"/>
           <path d="M24 10C24 10 14 18 14 26C14 31.5 18.5 36 24 36C29.5 36 34 31.5 34 26C34 18 24 10 24 10Z" fill="rgba(255,255,255,0.9)"/>
-          <path d="M24 20V32M20 26H28" stroke="#1B5E20" stroke-width="2" stroke-linecap="round"/>
+          <path d="M24 20V32M20 26H28" stroke="#1A3A5C" stroke-width="2" stroke-linecap="round"/>
         </svg>
       </div>
       <h1>Philippine 24-Hour<br>Food Recall System</h1>
