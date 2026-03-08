@@ -21,6 +21,7 @@ if (!$user || $user['role'] !== 'supervisor') {
   </div>
   <div class="topnav-right">
     <a href="analytics.php" class="nav-analytics-link">Analytics</a>
+    <a href="help.php" class="nav-analytics-link">Help</a>
     <span class="nav-user"><?= htmlspecialchars($user['full_name']) ?></span>
     <a href="logout.php" class="nav-logout">Logout</a>
   </div>

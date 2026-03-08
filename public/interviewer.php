@@ -24,6 +24,7 @@ if (!$user || $user['role'] !== 'interviewer') {
     <span class="nav-title" id="navTitle">My Households</span>
   </div>
   <div class="topnav-right">
+    <a href="help.php" class="nav-analytics-link">Help</a>
     <span class="nav-user"><?= htmlspecialchars($user['full_name']) ?></span>
     <a href="logout.php" class="nav-logout">Logout</a>
   </div>
