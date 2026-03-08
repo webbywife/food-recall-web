@@ -31,17 +31,17 @@ $back = $user['role'] === 'supervisor' ? 'supervisor.php' : 'interviewer.php';
 
 /* ── Content sections ────────────────────────────────── */
 .help-section        { margin-bottom: 2.5rem; }
-.help-section h2     { font-size: 1.2rem; color: var(--green-900); border-bottom: 2px solid var(--green-100); padding-bottom: .5rem; margin-bottom: 1rem; }
+.help-section h2     { font-size: 1.2rem; color: var(--green-900); border-bottom: 2px solid var(--border); padding-bottom: .5rem; margin-bottom: 1rem; }
 .help-section h3     { font-size: .95rem; font-weight: 700; margin: 1.25rem 0 .5rem; color: var(--text); }
 .help-section p      { line-height: 1.7; color: var(--text-2); margin-bottom: .75rem; font-size: .9rem; }
 .help-section ul,
 .help-section ol     { padding-left: 1.4rem; line-height: 1.9; color: var(--text-2); font-size: .9rem; margin-bottom: .75rem; }
 .help-badge  { display: inline-block; padding: .15rem .55rem; border-radius: 20px; font-size: .75rem; font-weight: 700; vertical-align: middle; }
-.hb-green    { background: var(--green-100); color: var(--green-900); }
+.hb-green    { background: #E8EEF6; color: var(--green-900); }
 .hb-gold     { background: var(--gold-light); color: #7a5c00; }
 .hb-blue     { background: #e3f2fd; color: #1565c0; }
 .hb-red      { background: var(--red-light); color: var(--red); }
-.pass-card   { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--green-600); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: .85rem; }
+.pass-card   { background: var(--white); border: 1px solid var(--border); border-left: 4px solid var(--green-800); border-radius: var(--radius); padding: 1rem 1.25rem; margin-bottom: .85rem; }
 .pass-card h4 { margin: 0 0 .35rem; font-size: .95rem; color: var(--green-900); }
 .pass-card p  { margin: 0; font-size: .875rem; color: var(--text-2); line-height: 1.6; }
 .tip-box     { background: #fff8e1; border: 1px solid #ffe082; border-radius: var(--radius-sm); padding: .75rem 1rem; font-size: .85rem; color: #5d4037; margin: .75rem 0; }

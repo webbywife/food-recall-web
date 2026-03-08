@@ -330,11 +330,11 @@ a{text-decoration:none}
 }
 .btn-green{
   display:inline-flex;align-items:center;gap:.45rem;
-  background:var(--g900);color:#fff;
+  background:var(--g800);color:#fff;
   padding:.8rem 1.7rem;border-radius:7px;font-weight:700;font-size:.88rem;
   transition:background .2s,transform .15s;
 }
-.btn-green:hover{background:var(--g800);transform:translateY(-2px)}
+.btn-green:hover{background:#a01f22;transform:translateY(-2px)}
 
 /* Illustration card */
 .ph-card{
@@ -629,7 +629,7 @@ footer{background:var(--gd);padding:3rem 1.5rem}
             <path d="M4 9h16" stroke="#C9A84C" stroke-width="1.5"/>
             <path d="M8 3v4M16 3v4" stroke="#C9A84C" stroke-width="1.6" stroke-linecap="round"/>
             <path d="M9 13.5l2 2 4-4" stroke="#C9A84C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="18" cy="17" r="4" fill="#0A2610" stroke="#C9A84C" stroke-width="1.5"/>
+            <circle cx="18" cy="17" r="4" fill="#0F1F35" stroke="#C9A84C" stroke-width="1.5"/>
             <path d="M17 17h2M18 16v2" stroke="#C9A84C" stroke-width="1.2" stroke-linecap="round"/>
           </svg>
         </div>
@@ -828,7 +828,7 @@ footer{background:var(--gd);padding:3rem 1.5rem}
   <div class="ft-in">
     <div class="ft-logo">
       <div class="logo-mark" style="width:28px;height:28px;border-radius:6px;background:rgba(201,168,76,.7);display:flex;align-items:center;justify-content:center">
-        <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2C10 2 5 6 5 11C5 13.76 7.24 16 10 16C12.76 16 15 13.76 15 11C15 6 10 2 10 2Z" fill="#0A2610"/><path d="M10 7V14M8 10H12" stroke="#0A2610" stroke-width="1.5" stroke-linecap="round"/></svg>
+        <svg width="14" height="14" viewBox="0 0 20 20" fill="none"><path d="M10 2C10 2 5 6 5 11C5 13.76 7.24 16 10 16C12.76 16 15 13.76 15 11C15 6 10 2 10 2Z" fill="#0F1F35"/><path d="M10 7V14M8 10H12" stroke="#0F1F35" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
       FoodRecord
     </div>

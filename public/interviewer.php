@@ -13,7 +13,7 @@ if (!$user || $user['role'] !== 'interviewer') {
 <meta name="csrf-token" content="<?= csrf_token() ?>">
 <title>Interviewer Portal | 24HR Food Recall</title>
 <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#1B5E20">
+<meta name="theme-color" content="#1A3A5C">
 <link rel="stylesheet" href="assets/css/app.css">
 </head>
 <body class="app-page">
