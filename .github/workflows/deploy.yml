@@ -8,14 +8,16 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Setup SSH key
+      - name: Setup SSH
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.DEPLOY_SSH_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -H 107.173.35.23 >> ~/.ssh/known_hosts
+          echo "|1|dVC4Z6X2GA5MZOFxPg0S9JVb9oI=|dbQYmEcEu9C7cogh2TBpH9gFQ3o= ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDCZq+/vH55YwoWK19Krln2H8UCGjV6U74lKlwPaP6PtGYYeyYSABP8GHzkwN3AgON0ynAtythIdm2SI1G45/JydIDcXcMPFRRDy4yyV70sugEaFsS6cplaE+ML+KNi7Pg4XnmMahZDvr3J1aoI+hcnspO442TP+yPxmMgkQIptFeMM9ODvth0Nx0qnDrXB6gCuN//Pz6SjViXSq4ynpo0Bb2yHyJuAudWK+Ui/zc9DZK3kLFqZ9Ha6yBUND9hkRfxlCZTfChLBd5SeQySNXpIFn49jdabz11CdpBlWfQYyIjh5Q6o5zRaQCUFUPsv8hvZe88E2+B7138qyscMyrWZqOnnKC8xUxFeFOzIjioj5fCGa9Q0GspATON80xWWwoGuqjs8FVEM2MNe8bz+Nzu3uD5e2g5MR1VpctQ/q8HDrJD8zDqwS3zmEbEYW9lCevAF20/B6DJu56ESNKBEsWVxRuBAzxr5oQ2y80pvT8QwO/j01ublJmOVt0dQxadqKoyU=" >> ~/.ssh/known_hosts
+          echo "|1|1zTHlkU6Pr/50BJbGPvQ6e359I4=|lHpoQtW9QfbK1geDeEGbc8cB38k= ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBH3xo165pCrtjvE3rMxXvt8wEfnRvmWDDlaOOipTDBrvGRRXe5y+DbJiUCIlozd/DjxVXjtCu+QPh1pBg4sXrA0=" >> ~/.ssh/known_hosts
+          echo "|1|tJp8V8VP1cKq9+vR0zKm+5o6Kms=|yW9TayBTJNf3+j7ybM1b6O00Fos= ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIDazfFEFAMnCQX+5qLeroKI7d2DJLjiiPYPty4hyMDeJ" >> ~/.ssh/known_hosts
 
       - name: Deploy to server
         run: |
-          ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no ploi@107.173.35.23 \
+          ssh -i ~/.ssh/deploy_key ploi@107.173.35.23 \
             "cd /home/ploi/foodrecord.webprvw.xyz && git pull origin main"
