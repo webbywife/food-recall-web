@@ -2,24 +2,27 @@
    Philippine 24-HR Food Recall — App Styles
    ============================================================ */
 
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=DM+Sans:wght@300;400;500;600&display=swap');
+
 :root {
-  --green-900: #1B5E20;
-  --green-800: #2E7D32;
-  --green-600: #43A047;
-  --green-100: #E8F5E9;
-  --green-50:  #F1F8F2;
-  --gold:      #C9A84C;
-  --gold-light:#F5E9C6;
-  --text:      #1A2E1A;
-  --text-2:    #4A6348;
-  --text-muted:#8A9E8A;
-  --border:    #D4E6D4;
-  --bg:        #F4F8F4;
+  /* Kain24 PH palette */
+  --green-900: #1A3A5C;   /* navy — nav bar, table headers */
+  --green-800: #C1272D;   /* Philippine red — primary buttons, active states */
+  --green-600: #2E7D52;   /* kain24 green — progress bars, success badges, focus */
+  --green-100: #E8F5EE;   /* light green tint — success badges, FCT selection */
+  --green-50:  #FFF9F0;   /* warm cream — card surfaces, hover backgrounds */
+  --gold:      #F5A623;   /* warm gold accent */
+  --gold-light:#FEF3DC;   /* light gold tint */
+  --text:      #1C1C1C;
+  --text-2:    #1A3A5C;   /* navy for secondary text */
+  --text-muted:#6B6B6B;
+  --border:    #E8DDD0;   /* warm cream border */
+  --bg:        #FFF9F0;   /* warm off-white page background */
   --white:     #FFFFFF;
-  --red:       #C62828;
+  --red:       #C1272D;
   --red-light: #FFEBEE;
-  --shadow:    0 2px 8px rgba(27,94,32,0.10);
-  --shadow-lg: 0 8px 32px rgba(27,94,32,0.14);
+  --shadow:    0 2px 8px rgba(26,58,92,0.10);
+  --shadow-lg: 0 8px 32px rgba(26,58,92,0.14);
   --radius:    10px;
   --radius-sm: 6px;
 }
@@ -29,7 +32,7 @@
 html { font-size: 15px; }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   background: var(--bg);
   color: var(--text);
   line-height: 1.5;
@@ -66,7 +69,7 @@ body {
 
 .login-brand {
   flex: 1;
-  background: linear-gradient(145deg, #1B5E20 0%, #2E7D32 60%, #388E3C 100%);
+  background: linear-gradient(145deg, #0F1F35 0%, #1A3A5C 60%, #1E4976 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1376,12 +1379,12 @@ body {
 }
 
 .csv-result-ok {
-  background: #e8f5e9;
-  border: 1px solid #a5d6a7;
+  background: #e8f5ee;
+  border: 1px solid #81c995;
   border-radius: var(--radius-sm);
   padding: .65rem .9rem;
   font-size: .875rem;
-  color: var(--green-900);
+  color: #1B5E20;
 }
 .csv-result-err {
   background: var(--red-light);

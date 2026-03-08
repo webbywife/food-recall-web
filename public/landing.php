@@ -13,13 +13,16 @@ if ($user) {
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="FoodRecord — The Philippine 24-Hour Dietary Recall System. Built for FNRI-DOST NNS 2024. Aligned with Philippine RENI 2015.">
 <title>FoodRecord — Philippine 24-Hour Dietary Recall System</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ═══ RESET ═══════════════════════════════════════════════════════ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{
-  font-family:'Trebuchet MS','Lucida Grande',Optima,'Segoe UI',system-ui,sans-serif;
-  background:#FAFDF5;color:#111D13;
+  font-family:'DM Sans','Trebuchet MS',system-ui,sans-serif;
+  background:#FFF9F0;color:#1C1C1C;
   overflow-x:hidden;-webkit-font-smoothing:antialiased;
 }
 img,svg{display:block}
@@ -27,26 +30,26 @@ a{text-decoration:none}
 
 /* ═══ TOKENS ══════════════════════════════════════════════════════ */
 :root{
-  --gd:   #091F0C;
-  --g900: #1B5E20;
-  --g800: #2E7D32;
-  --g600: #388E3C;
-  --g100: #C8E6C9;
-  --g50:  #E8F5E9;
-  --gold: #C9A84C;
-  --gold-l:#F0D080;
+  --gd:   #0F1F35;          /* very dark navy */
+  --g900: #1A3A5C;          /* navy */
+  --g800: #C1272D;          /* Philippine red — primary brand */
+  --g600: #D93025;          /* medium red */
+  --g100: #FDEEE8;          /* light warm pink */
+  --g50:  #FFF9F0;          /* warm cream surface */
+  --gold: #F5A623;          /* warm gold */
+  --gold-l:#FCEDC0;         /* light gold */
   --gold-d:#8B6914;
-  --cream:#FAFDF5;
-  --c2:   #EFF6EB;
+  --cream:#FFF9F0;          /* warm off-white */
+  --c2:   #FEF3DC;          /* light gold tint */
   --wh:   #FFFFFF;
-  --t:    #111D13;
-  --t2:   #2D3F2F;
-  --t3:   #5C7060;
-  --bdr:  rgba(27,94,32,.13);
-  --shd:  0 4px 24px rgba(9,31,12,.10);
-  --shd2: 0 12px 48px rgba(9,31,12,.16);
-  --fd:   Baskerville,'Baskerville Old Face',Garamond,Georgia,serif;
-  --fb:   'Trebuchet MS',Optima,'Segoe UI',system-ui,sans-serif;
+  --t:    #1C1C1C;
+  --t2:   #1A3A5C;          /* navy for headings */
+  --t3:   #6B6B6B;
+  --bdr:  rgba(26,58,92,.13);
+  --shd:  0 4px 24px rgba(26,58,92,.10);
+  --shd2: 0 12px 48px rgba(26,58,92,.16);
+  --fd:   'Playfair Display',Baskerville,Georgia,serif;
+  --fb:   'DM Sans','Trebuchet MS',system-ui,sans-serif;
   --mw:   1160px;
   --nh:   66px;
   --rad:  10px;
@@ -67,7 +70,7 @@ a{text-decoration:none}
   padding:0 2rem;transition:background .35s,box-shadow .35s;
 }
 #nav.ink{
-  background:rgba(9,31,12,.96);
+  background:rgba(15,31,53,.96);
   box-shadow:0 2px 24px rgba(0,0,0,.28);
   backdrop-filter:blur(14px);
 }
@@ -115,9 +118,9 @@ a{text-decoration:none}
 .hero-glow{
   position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 55% 65% at 25% 55%, rgba(27,94,32,.55) 0%,transparent 70%),
-    radial-gradient(ellipse 35% 45% at 80% 25%, rgba(46,125,50,.28) 0%,transparent 65%),
-    radial-gradient(ellipse 30% 40% at 70% 80%, rgba(201,168,76,.08) 0%,transparent 60%);
+    radial-gradient(ellipse 55% 65% at 25% 55%, rgba(193,39,45,.45) 0%,transparent 70%),
+    radial-gradient(ellipse 35% 45% at 80% 25%, rgba(26,58,92,.55) 0%,transparent 65%),
+    radial-gradient(ellipse 30% 40% at 70% 80%, rgba(245,166,35,.08) 0%,transparent 60%);
 }
 
 /* Particles */
@@ -398,7 +401,7 @@ a{text-decoration:none}
 .cta-strip::before{
   content:'';position:absolute;inset:0;
   background:
-    radial-gradient(ellipse 80% 100% at 50% 50%,rgba(46,125,50,.55),transparent),
+    radial-gradient(ellipse 80% 100% at 50% 50%,rgba(193,39,45,.3),transparent),
     url("data:image/svg+xml,%3Csvg width='70' height='70' viewBox='0 0 70 70' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='none' stroke='rgba(255,255,255,0.025)' stroke-width='0.5' d='M35 0L70 35L35 70L0 35Z'/%3E%3C/svg%3E");
   background-size:cover, 70px 70px;
 }
@@ -443,7 +446,7 @@ footer{background:var(--gd);padding:3rem 1.5rem}
   .nav-menu.open{
     display:flex;flex-direction:column;
     position:fixed;top:var(--nh);left:0;right:0;
-    background:rgba(9,31,12,.97);padding:1.5rem 2rem;gap:1.25rem;
+    background:rgba(15,31,53,.97);padding:1.5rem 2rem;gap:1.25rem;
     backdrop-filter:blur(14px);
   }
   .burger{display:flex}
@@ -467,8 +470,8 @@ footer{background:var(--gd);padding:3rem 1.5rem}
     <a href="landing.php" class="logo">
       <div class="logo-mark">
         <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-          <path d="M10 2C10 2 5 6 5 11C5 13.76 7.24 16 10 16C12.76 16 15 13.76 15 11C15 6 10 2 10 2Z" fill="#0A2610"/>
-          <path d="M10 7V14M8 10H12" stroke="#0A2610" stroke-width="1.5" stroke-linecap="round"/>
+          <path d="M10 2C10 2 5 6 5 11C5 13.76 7.24 16 10 16C12.76 16 15 13.76 15 11C15 6 10 2 10 2Z" fill="#0F1F35"/>
+          <path d="M10 7V14M8 10H12" stroke="#0F1F35" stroke-width="1.5" stroke-linecap="round"/>
         </svg>
       </div>
       <span class="logo-name">Food<b>Record</b></span>
